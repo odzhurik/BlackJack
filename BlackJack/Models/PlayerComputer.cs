@@ -25,12 +25,12 @@ namespace BlackJack.Models
             if(sum==21)
             {
                 Win = true;
-                Console.WriteLine("Компьютер выиграл!");
+                Console.WriteLine("\n"+"Компьютер выиграл!");
                 
             }
             if(sum>21)
             {
-                Console.WriteLine("Перебор.Компьютер проиграл");
+                Console.WriteLine("\n"+"Перебор.Компьютер проиграл");
                 PlayerOp.Win = true;
                 
             }

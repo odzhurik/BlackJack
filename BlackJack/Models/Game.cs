@@ -8,43 +8,46 @@ namespace BlackJack.Models
 {
     class Game:IGame
     {
-        public  Dictionary<int, Card> cards { get; private set; }
+        public Dictionary<int, Card> cards { get; private set; }
+         public List<Denomination> DenominationList { get; private set; }
+        public Card CardCheck(Player player,Card card, Random rng)
+        {
+           
+            if (player.Cards.ContainsKey(card))
+            {
+                do
+                {
+                    card = cards[rng.Next(0, 51)];
+                }
+                while (player.Cards.ContainsKey(card));
+            }
+            return card;
+
+
+        }
         public  void Init(Player comp,Player player)
         {
             CardInit();
             comp.Cards.Clear();
             player.Cards.Clear();
-            Random rng = new Random(Guid.NewGuid().GetHashCode());
+           Random rng = new Random(Guid.NewGuid().GetHashCode());
             for(int i=0;i<2;i++)
             {
+               
                 Card card = cards[rng.Next(0, 51)];
-                if(comp.Cards.ContainsKey(card))
-                {
-                    do
-                    {
-                        card = cards[rng.Next(0, 51)];
-                    }
-                    while (comp.Cards.ContainsKey(card));
-                }
-                comp.Cards.Add(card,card);
-                card = cards[rng.Next(0, 51)];
-                if (player.Cards.ContainsKey(card))
-                {
-                    do
-                    {
-                        card = cards[rng.Next(0, 51)];
-                    }
-                    while (player.Cards.ContainsKey(card));
-                }
-
-                player.Cards.Add(card,card);
+               card= CardCheck(comp,card,rng);
+                comp.Cards.Add(card, card);
+                card= cards[rng.Next(0, 51)];
+                card = CardCheck(player,card,rng);
+                player.Cards.Add(card, card);
+               
             }
 
         }
      public  void CardInit()
         {
             cards = new Dictionary<int, Card>();
-            List<Denomination> DenominationList = new List<Denomination>() {Denomination.Two, Denomination.Three,Denomination.Four, Denomination.Five, Denomination.Six, Denomination.Seven, Denomination.Eight, Denomination.Nine, Denomination.Ten, Denomination.Jack,Denomination.Queen, Denomination.King,Denomination.Ace };
+             DenominationList = new List<Denomination>() {Denomination.Two, Denomination.Three,Denomination.Four, Denomination.Five, Denomination.Six, Denomination.Seven, Denomination.Eight, Denomination.Nine, Denomination.Ten, Denomination.Jack,Denomination.Queen, Denomination.King,Denomination.Ace };
             for(int i=0;i<13;i++)
             {
                 Card card= new Card(DenominationList[i], Suit.Clubs);

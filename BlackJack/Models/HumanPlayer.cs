@@ -15,25 +15,24 @@ namespace BlackJack.Models
         }
         public override void Play()
         {
-            Console.Write("Ваши карты: ");
+            Console.Write("\n"+"Ваши карты: ");
             foreach(Card card in Cards.Values)
             {
                 Console.Write("Масть: "+card.suit+", Достоинство: "+card.denomination+", ");
             }
             base.Play();
-           // Console.WriteLine("\n Сумма: " + sum);
             if (sum==21)
             {
                 
                 Win = true;
-                Console.WriteLine("\nВы выиграли!");
+                Console.WriteLine("\n"+"Вы выиграли!");
                 
 
             }
             if(sum>21)
             {
 
-                Console.WriteLine("/nВы проиграли!Компьютер выиграл.");
+                Console.WriteLine("\n"+"Вы проиграли!Компьютер выиграл.");
                 PlayerOp.Win = true;
                 
             }

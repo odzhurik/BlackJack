@@ -8,10 +8,7 @@ namespace BlackJack.Models
 {
     static class GameInterface
     {
-       static HumanPlayer playerHuman;
-       static PlayerComputer playerComputer;
-        static IGame game;
-       
+            
         public static int BeginGame(HumanPlayer playerH, PlayerComputer playerC,IGame Game)
         {
             Console.WriteLine("Приветствую в игре Блэк Джек.|" +
@@ -23,8 +20,7 @@ namespace BlackJack.Models
                     {
                         Game.Init(playerC, playerH);
                         return 1;
-                       // break;
-                    }
+                    }                    
                 case 2:
                     {
                         System.Environment.Exit(0);
@@ -48,7 +44,7 @@ namespace BlackJack.Models
             {
                 return 1;
             }
-            Console.WriteLine("\nНажмите 1, чтобы взять карту.| Нажмите 2, чтобы выйти");
+            Console.WriteLine("\n"+"Нажмите 1, чтобы взять карту.| Нажмите 2, чтобы выйти");
             int number = Int32.Parse(Console.ReadLine());
 
             switch(number)

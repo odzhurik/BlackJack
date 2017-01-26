@@ -6,27 +6,14 @@ using System.Threading.Tasks;
 
 namespace BlackJack.Models
 {
-   abstract class Player
+    abstract class Player
     {
-       public Dictionary<Card,Card> Cards;
+        public Dictionary<Card, Card> Cards;
 
         protected int sum;
-        private Player playerOp;
+        public Player PlayerOp { get; set; }
         IGame game;
         public bool Win;
-
-        public Player PlayerOp
-        {
-            get
-            {
-                return playerOp;
-            }
-
-            set
-            {
-                playerOp = value;
-            }
-        }
 
         public Player(IGame Game)
         {
@@ -35,31 +22,21 @@ namespace BlackJack.Models
         }
         public virtual void Play()
         {
-            
+
             sum = 0;
-           
-            foreach(Card card in Cards.Values)
+
+            foreach (Card card in Cards.Values)
             {
                 sum += Convert.ToInt32(card.denomination);
 
             }
-
-            
-
         }
         public void AddCard()
         {
             Random rng = new Random(Guid.NewGuid().GetHashCode());
             Card card = game.cards[rng.Next(0, 51)];
-            if(Cards.ContainsKey(card))
-            {
-                do
-                {
-                     card = game.cards[rng.Next(0, 51)];
-                }
-                while (Cards.ContainsKey(card));
-            }
-            Cards.Add(card,card);
+            card = game.CardCheck(this, card, rng);
+            Cards.Add(card, card);
         }
     }
 }
