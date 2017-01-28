@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace BlackJack.Models
 {
-    class Card
+    class Denomination
     {
-       public Denomination CardDenomination { get;  set; }
-       public Suit Suit { get; set; }
-      
-       
+        public string Name { get; set; }
+        public int Value { get; set; }
     }
 }

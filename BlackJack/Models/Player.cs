@@ -6,37 +6,72 @@ using System.Threading.Tasks;
 
 namespace BlackJack.Models
 {
-    abstract class Player
+    class Player
     {
-        public Dictionary<Card, Card> Cards;
+        public Dictionary<Card, Card> PlayerCards;
 
-        protected int sum;
+        int _sum;
+        string _name;
         public Player PlayerOp { get; set; }
-        IGame game;
+        GameSettings _gameSettings;
         public bool Win;
 
-        public Player(IGame Game)
+        public Player(string Name, GameSettings Game)
         {
-            Cards = new Dictionary<Card, Card>();
-            game = Game;
+            _name = Name;
+            PlayerCards = new Dictionary<Card, Card>();
+            _gameSettings = Game;
+        }
+        void SumOfCards(Dictionary<Card, Card> Cards)
+        {
+            _sum = 0;
+
+            foreach (Card card in Cards.Values)
+            {
+                _sum += Convert.ToInt32(card.CardDenomination.Value);
+
+            }
+            
         }
         public virtual void Play()
         {
 
-            sum = 0;
-
-            foreach (Card card in Cards.Values)
+            SumOfCards(PlayerCards);
+            if (_name == "Computer")
             {
-                sum += Convert.ToInt32(card.denomination);
-
+                if (_sum < 21)
+                {
+                    AddCard();
+                    
+                }
+                if (_sum == 21)
+                {
+                    Win = true;
+                }
+                if (_sum > 21)
+                {
+                    PlayerOp.Win = true;
+                }
+            }
+            if(_name=="Human")
+            {
+                if(_sum==21)
+                {
+                    Win = true;
+                }
+                if(_sum>21)
+                {
+                    PlayerOp.Win = true;
+                }
             }
         }
         public void AddCard()
         {
             Random rng = new Random(Guid.NewGuid().GetHashCode());
-            Card card = game.cards[rng.Next(0, 51)];
-            card = game.CardCheck(this, card, rng);
-            Cards.Add(card, card);
+            Card card = _gameSettings.Cards[rng.Next(0, _gameSettings.Cards.Count)];
+            card = _gameSettings.CardCheck(this, card, rng);
+            PlayerCards.Add(card, card);
+            SumOfCards(PlayerCards);
         }
     }
 }

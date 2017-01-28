@@ -9,61 +9,78 @@ namespace BlackJack.Models
     static class GameInterface
     {
             
-        public static int BeginGame(HumanPlayer playerH, PlayerComputer playerC,IGame Game)
+        public static int BeginGame(Player playerH, Player playerC,GameSettings Game)
         {
             Console.WriteLine("Приветствую в игре Блэк Джек.|" +
                 " Нажмите 1, чтобы сдать карты.| Нажмите 2, чтобы прекратить игру.");
             int number =Int32.Parse(Console.ReadLine());
-            switch (number)
-            {
-                case 1:
+            
+            
+                if(number==1)
                     {
                         Game.Init(playerC, playerH);
                         return 1;
                     }                    
-                case 2:
+                if(number==2)
                     {
                         System.Environment.Exit(0);
-                        break;
+                        
                         
                     }
-                default:
+                if(number!=1 && number!=2)
                     {
                         Console.WriteLine("Введите 1 или 2");
-                        break;
+                        
                     }
-            }
+            
             return 0;
         }
         
-        public static int PlayGame(HumanPlayer playerH, PlayerComputer playerC)
+        public static int PlayGame(Player playerH, Player playerC)
         {
-            playerH.Play();
-            playerC.Play();
-            if(playerC.Win || playerH.Win)
+            Console.Write("\n" + "Ваши карты: ");
+            foreach(Card card in playerH.PlayerCards.Values)
             {
+                Console.Write("Масть: " + card.Suit + " Достоинство: " + card.CardDenomination.Name + ", ");
+            }
+
+            playerH.Play();
+
+            playerC.Play();
+            if(playerC.Win)
+            {
+                Console.WriteLine("\n"+"Компьютер выиграл!");
+                return 1;
+            }
+            if(playerH.Win)
+            {
+                Console.WriteLine("\n" + "Вы выиграли!");
                 return 1;
             }
             Console.WriteLine("\n"+"Нажмите 1, чтобы взять карту.| Нажмите 2, чтобы выйти");
             int number = Int32.Parse(Console.ReadLine());
 
-            switch(number)
-            {
-                case 1:
+                if(number==1)
                     {
                         playerH.AddCard();
                         playerH.Play();
                        
-                        break;
+                        
                     }
-                case 2:
+                if(number==2)
                     {
                         System.Environment.Exit(0);
-                        break;
+                        
                     }
-            }
-            if (playerH.Win || playerC.Win)
+            
+            if (playerC.Win)
             {
+                Console.WriteLine("\n" + "Компьютер выиграл!");
+                return 1;
+            }
+            if (playerH.Win)
+            {
+                Console.WriteLine("\n" + "Вы выиграли!");
                 return 1;
             }
             return 0;

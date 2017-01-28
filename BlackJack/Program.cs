@@ -11,21 +11,8 @@ namespace BlackJack
     {
         static void Main(string[] args)
         {
-            
-            int result = 0;
-            do
-            {
-                Game game = new Game();
-                PlayerComputer comp = new PlayerComputer(game);
-                HumanPlayer player = new HumanPlayer(game);
-                comp.PlayerOp = player;
-                player.PlayerOp = comp;
-                result =GameInterface.BeginGame(player, comp,game);
-                do
-                {
-                    result = GameInterface.PlayGame(player, comp);
-                } while (result == 0);
-            } while (result==1);
+
+            Game.PlayGame();
             Console.ReadLine();
         }
     }
