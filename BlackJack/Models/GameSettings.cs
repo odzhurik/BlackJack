@@ -41,10 +41,7 @@ namespace BlackJack.Models
             Random rng = new Random(Guid.NewGuid().GetHashCode());
 
             Cards = Shuffle(rng);
-            foreach(Card card in Cards)
-            {
-                Console.WriteLine(card.CardDenomination.Name + " of " + card.Suit);
-            }
+            
             for (int i = 0; i < 2; i++)
             {
 

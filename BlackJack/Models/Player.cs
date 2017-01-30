@@ -72,6 +72,10 @@ namespace BlackJack.Models
             card = _gameSettings.CardCheck(this, card, rng);
             PlayerCards.Add(card, card);
             SumOfCards(PlayerCards);
+            if(_sum==21)
+            {
+                Win = true;
+            }
         }
     }
 }
