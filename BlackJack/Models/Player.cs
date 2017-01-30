@@ -14,7 +14,7 @@ namespace BlackJack.Models
         string _name;
         public Player PlayerOp { get; set; }
         GameSettings _gameSettings;
-        public bool Win;
+        public bool Win { get; set; }
 
         public Player(string Name, GameSettings Game)
         {
