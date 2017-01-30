@@ -33,6 +33,17 @@ namespace BlackJack.Models
             }
             
         }
+        public void GameConditions()
+        {
+            if (_sum == 21)
+            {
+                Win = true;
+            }
+            if (_sum > 21)
+            {
+                PlayerOp.Win = true;
+            }
+        }
         public virtual void Play()
         {
 
@@ -44,25 +55,11 @@ namespace BlackJack.Models
                     AddCard();
                     
                 }
-                if (_sum == 21)
-                {
-                    Win = true;
-                }
-                if (_sum > 21)
-                {
-                    PlayerOp.Win = true;
-                }
+                GameConditions();
             }
             if(_name=="Human")
             {
-                if(_sum==21)
-                {
-                    Win = true;
-                }
-                if(_sum>21)
-                {
-                    PlayerOp.Win = true;
-                }
+                GameConditions();
             }
         }
         public void AddCard()
@@ -72,10 +69,7 @@ namespace BlackJack.Models
             card = _gameSettings.CardCheck(this, card, rng);
             PlayerCards.Add(card, card);
             SumOfCards(PlayerCards);
-            if(_sum==21)
-            {
-                Win = true;
-            }
+            GameConditions();
         }
     }
 }
