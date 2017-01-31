@@ -13,7 +13,7 @@ namespace BlackJack
         {
 
             Game.PlayGame();
-            Console.ReadLine();
+            
         }
     }
 }

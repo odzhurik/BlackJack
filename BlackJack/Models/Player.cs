@@ -8,68 +8,65 @@ namespace BlackJack.Models
 {
     class Player
     {
-        public Dictionary<Card, Card> PlayerCards;
-
+        public List<Card> PlayerCards;
         int _sum;
-        string _name;
         public Player PlayerOp { get; set; }
-        GameSettings _gameSettings;
-        public bool Win { get; set; }
+      
+         public string Name { get; set; }   
+        
 
-        public Player(string Name, GameSettings Game)
+        public Player()
         {
-            _name = Name;
-            PlayerCards = new Dictionary<Card, Card>();
-            _gameSettings = Game;
+            PlayerCards = new List<Card>();
+            
         }
-        void SumOfCards(Dictionary<Card, Card> Cards)
+        void SumOfCards(List<Card> Cards)
         {
             _sum = 0;
 
-            foreach (Card card in Cards.Values)
+            foreach (Card card in Cards)
             {
-                _sum += Convert.ToInt32(card.CardDenomination.Value);
+                _sum += card.CardDenomination.Value;
 
             }
             
         }
-        public void GameConditions()
+        public Player GameConditions()
         {
             if (_sum == 21)
             {
-                Win = true;
+                return this;
             }
             if (_sum > 21)
             {
-                PlayerOp.Win = true;
+                return PlayerOp;
             }
+            return null;
         }
-        public virtual void Play()
+        public Player Play()
         {
 
             SumOfCards(PlayerCards);
-            if (_name == "Computer")
+            if (Name == "Computer")
             {
                 if (_sum < 21)
                 {
-                    AddCard();
+                   return AddCard();
                     
                 }
-                GameConditions();
+                return GameConditions();
             }
-            if(_name=="Human")
+            if(Name=="Human")
             {
-                GameConditions();
+               return GameConditions();
             }
+            return null;
         }
-        public void AddCard()
+        public Player AddCard()
         {
-            Random rng = new Random(Guid.NewGuid().GetHashCode());
-            Card card = _gameSettings.Cards[rng.Next(0, _gameSettings.Cards.Count)];
-            card = _gameSettings.CardCheck(this, card, rng);
-            PlayerCards.Add(card, card);
+            PlayerCards.Add(Dealer.CardsShuff.Pop());
             SumOfCards(PlayerCards);
-            GameConditions();
+           return GameConditions();
         }
     }
 }
