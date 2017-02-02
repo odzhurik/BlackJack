@@ -8,7 +8,6 @@ namespace BlackJack.Models
 {
     static class GameInterface
     {
-
         public static void BeginGame(Player playerHuman, Player playerComputer)
         {
             Console.WriteLine("Приветствую в игре Блэк Джек.|" +
@@ -49,7 +48,6 @@ namespace BlackJack.Models
             PlayerTurn(playerHuman, out playerWinner);
             Console.WriteLine("\n" + "Нажмите 1, чтобы взять карту.| Нажмите 2, чтобы выйти");
             int number = Int32.Parse(Console.ReadLine());
-
             if (number == 1)
             {
                 playerHuman.AddCard(ref playerWinner);
@@ -67,8 +65,6 @@ namespace BlackJack.Models
                 Console.WriteLine("\n" + playerWinner.Name + " выиграл!");
                 Game.NewGameStart();
             }
-
-
         }
     }
 }
