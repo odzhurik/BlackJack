@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace BlackJack.Models
 {
-    class Card
+    enum LowerCard
     {
-        public string NameOfCard { get; set; }
-        public int ValueOfCard { get; set; }
-        public Suit Suit { get; set; }
+        Two=2,
+        Three,
+        Four,
+        Five,
+        Six,
+        Seven,
+        Eight,
+        Nine,
+        Ten
 
 
     }

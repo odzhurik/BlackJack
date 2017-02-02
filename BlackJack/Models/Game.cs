@@ -6,30 +6,27 @@ using System.Threading.Tasks;
 
 namespace BlackJack.Models
 {
-   static class Game
+    static class Game
     {
-        static Player _playerH;
-        static Player _playerC;
+        private static Player _playerHuman;
+        private static Player _playerComputer;
         public static void NewGameStart()
         {
-             
-            _playerC = new Player() { Name = "Computer" };
-            _playerH = new Player() { Name = "Human" };
-            _playerC.PlayerOp = _playerH;
-            _playerH.PlayerOp = _playerC;
-            GameInterface.BeginGame(_playerH,_playerC);
+            _playerComputer = new Player() { Name = PlayersName.Computer.ToString() };
+            _playerHuman = new Player() { Name = PlayersName.Human.ToString() };
+            _playerComputer.Opponent = _playerHuman;
+            _playerHuman.Opponent = _playerComputer;
+            GameInterface.BeginGame(_playerHuman, _playerComputer);
         }
         public static void Round()
         {
-            GameInterface.PlayGame(_playerH, _playerC);
+            GameInterface.PlayGame(_playerHuman, _playerComputer);
         }
-       public static void PlayGame()
+       
+        public static void PlayGame()
         {
-                       
-               NewGameStart();
-
-                Round();
-            
+            NewGameStart();
+            Round();
         }
     }
 }

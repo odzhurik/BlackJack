@@ -9,64 +9,61 @@ namespace BlackJack.Models
     class Player
     {
         public List<Card> PlayerCards;
-        int _sum;
-        public Player PlayerOp { get; set; }
-      
-         public string Name { get; set; }   
-        
-
+        private int _sum;
+        private const int _winCondition = 21;
+        public Player Opponent { get; set; }
+        public string Name { get; set; }
         public Player()
         {
             PlayerCards = new List<Card>();
-            
         }
-        void SumOfCards(List<Card> Cards)
+        private void SumOfCards(List<Card> Cards)
         {
             _sum = 0;
 
             foreach (Card card in Cards)
             {
-                _sum += card.CardDenomination.Value;
+                _sum += card.ValueOfCard;
 
+            }
+
+        }
+        public void GameConditions(ref Player Winner)
+        {
+            if (_sum == _winCondition)
+            {
+                Winner = this;
+            }
+            if (_sum > _winCondition)
+            {
+                Winner = Opponent;
             }
             
         }
-        public Player GameConditions()
+        public void Play(out Player Winner)
         {
-            if (_sum == 21)
-            {
-                return this;
-            }
-            if (_sum > 21)
-            {
-                return PlayerOp;
-            }
-            return null;
-        }
-        public Player Play()
-        {
-
+            Winner = null;
             SumOfCards(PlayerCards);
             if (Name == "Computer")
             {
-                if (_sum < 21)
+                if (_sum < _winCondition)
                 {
-                   return AddCard();
-                    
+                    AddCard(ref Winner);
+
                 }
-                return GameConditions();
+                 GameConditions(ref Winner);
             }
-            if(Name=="Human")
+            if (Name == "Human")
             {
-               return GameConditions();
+                 GameConditions(ref Winner);
             }
-            return null;
+            
         }
-        public Player AddCard()
+        public void AddCard( ref Player Winner)
         {
             PlayerCards.Add(Dealer.CardsShuff.Pop());
             SumOfCards(PlayerCards);
-           return GameConditions();
+             GameConditions(ref Winner);
         }
     }
 }
