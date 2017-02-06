@@ -24,12 +24,11 @@ namespace BlackJack.Models
             foreach (Card card in Cards)
             {
                 _sum += card.ValueOfCard;
-
             }
-
         }
-        public void GameConditions(ref Player Winner)
+        public void GameConditions(out Player Winner)
         {
+            Winner = null;
             if (_sum == _winCondition)
             {
                 Winner = this;
@@ -38,7 +37,7 @@ namespace BlackJack.Models
             {
                 Winner = Opponent;
             }
-            
+
         }
         public void Play(out Player Winner)
         {
@@ -49,21 +48,19 @@ namespace BlackJack.Models
                 if (_sum < _winCondition)
                 {
                     AddCard(ref Winner);
-
                 }
-                 GameConditions(ref Winner);
+                GameConditions(out Winner);
             }
             if (Name == "Human")
             {
-                 GameConditions(ref Winner);
+                GameConditions(out Winner);
             }
-            
         }
-        public void AddCard( ref Player Winner)
+        public void AddCard(ref Player Winner)
         {
             PlayerCards.Add(Dealer.CardsShuff.Pop());
             SumOfCards(PlayerCards);
-             GameConditions(ref Winner);
+            GameConditions(out Winner);
         }
     }
 }
