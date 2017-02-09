@@ -11,9 +11,8 @@ namespace BlackJack
     {
         static void Main(string[] args)
         {
-
-            Game.PlayGame();
-            
+            Game game = new Game();
+            game.PlayGame();
         }
     }
 }

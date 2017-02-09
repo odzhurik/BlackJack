@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlackJack.Models
 {
-    enum PlayersName
+   public enum PlayersName
     {
         Computer,
         Human

@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace BlackJack.Models
 {
-    enum HigherCard
+   public enum CardName
     {
+        Two,
+        Three,
+        Four,
+        Five,
+        Six,
+        Seven,
+        Eight,
+        Nine,
+        Ten,
         Jack,
         Queen,
         King,

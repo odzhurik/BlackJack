@@ -6,61 +6,63 @@ using System.Threading.Tasks;
 
 namespace BlackJack.Models
 {
-    class Player
+    internal class Player
     {
-        public List<Card> PlayerCards;
+        public List<Card> playerCards;
+        private Dealer dealer;
         private int _sum;
         private const int _winCondition = 21;
         public Player Opponent { get; set; }
-        public string Name { get; set; }
-        public Player()
+        public PlayersName Name { get; set; }
+        public Player(Dealer dealer)
         {
-            PlayerCards = new List<Card>();
+            playerCards = new List<Card>();
+            this.dealer = dealer;
         }
-        private void SumOfCards(List<Card> Cards)
+        private void SumOfCards(List<Card> cards)
         {
             _sum = 0;
 
-            foreach (Card card in Cards)
+            foreach (Card card in cards)
             {
                 _sum += card.ValueOfCard;
             }
         }
-        public void GameConditions(out Player Winner)
+        public void GameConditions(out Player winner)
         {
-            Winner = null;
+            winner = null;
             if (_sum == _winCondition)
             {
-                Winner = this;
+                winner = this;
             }
             if (_sum > _winCondition)
             {
-                Winner = Opponent;
+                winner = Opponent;
             }
 
         }
-        public void Play(out Player Winner)
+        public void Play(out Player winner)
         {
-            Winner = null;
-            SumOfCards(PlayerCards);
-            if (Name == "Computer")
+            winner = null;
+            SumOfCards(playerCards);
+            if (Name == PlayersName.Computer)
             {
                 if (_sum < _winCondition)
                 {
-                    AddCard(ref Winner);
+                    AddCard(ref winner);
                 }
-                GameConditions(out Winner);
+                GameConditions(out winner);
             }
-            if (Name == "Human")
+            if (Name == PlayersName.Human)
             {
-                GameConditions(out Winner);
+                GameConditions(out winner);
             }
         }
-        public void AddCard(ref Player Winner)
+        public void AddCard(ref Player winner)
         {
-            PlayerCards.Add(Dealer.CardsShuff.Pop());
-            SumOfCards(PlayerCards);
-            GameConditions(out Winner);
+            playerCards.Add(dealer.CardsShuff.Pop());
+            SumOfCards(playerCards);
+            GameConditions(out winner);
         }
     }
 }

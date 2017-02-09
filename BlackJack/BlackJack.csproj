@@ -43,8 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Card.cs" />
-    <Compile Include="Models\HigherCard.cs" />
-    <Compile Include="Models\LowerCard.cs" />
+    <Compile Include="Models\CardName.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Dealer.cs" />
     <Compile Include="Models\GameInterface.cs" />

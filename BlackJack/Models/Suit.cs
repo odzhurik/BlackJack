@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace BlackJack.Models
 {
-    enum Suit
+   public enum Suit
     {
         Hearts,
         Clubs,
         Diamonds,
         Spades
-
     }
 }

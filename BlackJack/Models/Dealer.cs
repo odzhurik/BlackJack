@@ -6,53 +6,58 @@ using System.Threading.Tasks;
 
 namespace BlackJack.Models
 {
-    static class Dealer
+    internal class Dealer
     {
-        public static Stack<Card> CardsShuff { get; private set; }
-        public static void DealCards(Player comp, Player player)
+        public  Stack<Card> CardsShuff { get; private set; }
+        public  void DealCards(Player computer, Player player)
         {
             List<Card> Cards = CardInit();
             CardsShuff = Shuffle(Cards);
             for (int i = 0; i < 2; i++)
             {
-                comp.PlayerCards.Add(CardsShuff.Pop());
-                player.PlayerCards.Add(CardsShuff.Pop());
+                computer.playerCards.Add(CardsShuff.Pop());
+                player.playerCards.Add(CardsShuff.Pop());
             }
         }
-        public static List<Card> CardInit()
+        public  List<Card> CardInit()
         {
             List<Card> Cards = new List<Card>();
-            int MinValueLowerCard = 2;
-            int MaxValueLowerCard = 10;
+            int MinValueCard = 2;
+            int MinValueHigherCard = 10;
             int MaxValueHigherCard = 11;
+          
             for (int i = 0; i < Enum.GetNames(typeof(Suit)).Length; i++)
             {
-                for (int valueLowerCard = MinValueLowerCard; valueLowerCard <= MaxValueLowerCard; valueLowerCard++)
+                for (int cardName = 0, cardValue = MinValueCard; cardName < Enum.GetNames(typeof(CardName)).Length; cardName++, cardValue++)
                 {
-                    Cards.Add(new Card { Suit = (Suit)i, NameOfCard = ((LowerCard)valueLowerCard).ToString(), ValueOfCard = valueLowerCard });
-                }
-                for (int higherCard = 0; higherCard < Enum.GetNames(typeof(HigherCard)).Length; higherCard++)
-                {
-                    if (((HigherCard)higherCard).ToString() == "Ace")
+                    if ((CardName)cardName == CardName.Jack || (CardName)cardName == CardName.King || (CardName)cardName == CardName.Queen)
                     {
-                        Cards.Add(new Card { Suit = (Suit)i, NameOfCard = ((HigherCard)higherCard).ToString(), ValueOfCard = MaxValueHigherCard });
+                        Cards.Add(new Card { Suit = (Suit)i, NameOfCard = (CardName)cardName, ValueOfCard = MinValueHigherCard });
+                    }
+                    if ((CardName)cardName == CardName.Ace)
+                    {
+                        Cards.Add(new Card { Suit = (Suit)i, NameOfCard = (CardName)cardName, ValueOfCard = MaxValueHigherCard });
                         break;
                     }
-                    Cards.Add(new Card { Suit = (Suit)i, NameOfCard = ((HigherCard)higherCard).ToString(), ValueOfCard = MaxValueLowerCard });
+                    if ((CardName)cardName <=CardName.Ten )
+                    {
+                        Cards.Add(new Card { Suit = (Suit)i, NameOfCard = (CardName)cardName, ValueOfCard = cardValue });
+                    }
+                    
                 }
             }
             return Cards;
         }
-        private static Stack<Card> Shuffle(List<Card> Cards)
+        private  Stack<Card> Shuffle(List<Card> cards)
         {
             Stack<Card> shuffCard = new Stack<Card>();
-            while (shuffCard.Count < Cards.Count)
+            while (shuffCard.Count < cards.Count)
             {
                 Random rdn = new Random();
-                int index = rdn.Next(0, Cards.Count);
-                if (!shuffCard.Contains(Cards[index]))
+                int index = rdn.Next(0, cards.Count);
+                if (!shuffCard.Contains(cards[index]))
                 {
-                    shuffCard.Push(Cards[index]);
+                    shuffCard.Push(cards[index]);
                 }
             }
             return shuffCard;
