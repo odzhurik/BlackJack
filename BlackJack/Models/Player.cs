@@ -25,7 +25,7 @@ namespace BlackJack.Models
 
             foreach (Card card in cards)
             {
-                _sum += card.ValueOfCard;
+                _sum += card.CardValue;
             }
         }
         public void GameConditions(out Player winner)

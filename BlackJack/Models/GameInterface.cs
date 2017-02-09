@@ -44,7 +44,7 @@ namespace BlackJack.Models
             Console.Write("\n" + "Ваши карты: ");
             foreach (Card card in playerHuman.playerCards)
             {
-                Console.Write("Масть: " + card.Suit + " Достоинство: " + card.NameOfCard + ", ");
+                Console.Write("Масть: " + card.Suit + " Достоинство: " + card.CardName + ", ");
             }
             PlayerTurn(playerComputer, out playerWinner);
             PlayerTurn(playerHuman, out playerWinner);

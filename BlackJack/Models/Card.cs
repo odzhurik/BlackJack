@@ -8,8 +8,8 @@ namespace BlackJack.Models
 {
     internal class Card
     {
-        public CardName NameOfCard { get; set; }
-        public int ValueOfCard { get; set; }
+        public CardName CardName { get; set; }
+        public int CardValue { get; set; }
         public Suit Suit { get; set; }
     }
 }
