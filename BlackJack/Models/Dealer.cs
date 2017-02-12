@@ -15,8 +15,10 @@ namespace BlackJack.Models
             CardsShuff = Shuffle(Cards);
             for (int i = 0; i < 2; i++)
             {
-                computer.playerCards.Add(CardsShuff.Pop());
-                player.playerCards.Add(CardsShuff.Pop());
+                Card card = CardsShuff.Pop();
+                computer.playerCards.Add(card);
+                card = CardsShuff.Pop();
+                player.playerCards.Add(card);
             }
         }
         public List<Card> CardInit()

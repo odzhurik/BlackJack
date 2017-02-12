@@ -60,7 +60,8 @@ namespace BlackJack.Models
         }
         public void AddCard(ref Player winner)
         {
-            playerCards.Add(dealer.CardsShuff.Pop());
+            Card card = dealer.CardsShuff.Pop();
+            playerCards.Add(card);
             SumOfCards(playerCards);
             GameConditions(out winner);
         }
