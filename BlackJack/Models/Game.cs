@@ -13,8 +13,10 @@ namespace BlackJack.Models
         public  void NewGameStart()
         {
             Dealer dealer = new Dealer();
-            _playerComputer = new Player(dealer) { Name=PlayersName.Computer};
-            _playerHuman = new Player(dealer) { Name=PlayersName.Human};
+            _playerComputer = new Player(dealer);
+             _playerComputer.Name=PlayersName.Computer;
+            _playerHuman = new Player(dealer);
+            _playerHuman.Name=PlayersName.Human;
             _playerComputer.Opponent = _playerHuman;
             _playerHuman.Opponent = _playerComputer;
             GameInterface.BeginGame(_playerHuman, _playerComputer,dealer,this);

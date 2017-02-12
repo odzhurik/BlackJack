@@ -8,8 +8,8 @@ namespace BlackJack.Models
 {
     internal class Dealer
     {
-        public  Stack<Card> CardsShuff { get; private set; }
-        public  void DealCards(Player computer, Player player)
+        public Stack<Card> CardsShuff { get; private set; }
+        public void DealCards(Player computer, Player player)
         {
             List<Card> Cards = CardInit();
             CardsShuff = Shuffle(Cards);
@@ -19,36 +19,49 @@ namespace BlackJack.Models
                 player.playerCards.Add(CardsShuff.Pop());
             }
         }
-        public  List<Card> CardInit()
+        public List<Card> CardInit()
         {
             List<Card> Cards = new List<Card>();
             int minValueCard = 2;
             int minValueHigherCard = 10;
             int maxValueCard = 11;
-          
+
             for (int i = 0; i < Enum.GetNames(typeof(Suit)).Length; i++)
             {
                 for (int cardName = 0, cardValue = minValueCard; cardName < Enum.GetNames(typeof(CardName)).Length; cardName++, cardValue++)
                 {
                     if ((CardName)cardName == CardName.Jack || (CardName)cardName == CardName.King || (CardName)cardName == CardName.Queen)
                     {
-                        Cards.Add(new Card { Suit = (Suit)i, CardName = (CardName)cardName, CardValue = minValueHigherCard });
+                        Card card = new Card();
+                        card.Suit = (Suit)i;
+                        card.CardName = (CardName)cardName;
+                        card.CardValue = minValueHigherCard;
+                        Cards.Add(card);
                     }
                     if ((CardName)cardName == CardName.Ace)
                     {
-                        Cards.Add(new Card { Suit = (Suit)i, CardName = (CardName)cardName, CardValue = maxValueCard });
+
+                        Card card = new Card();
+                        card.Suit = (Suit)i;
+                        card.CardName = (CardName)cardName;
+                        card.CardValue = maxValueCard;
+                        Cards.Add(card);
                         break;
                     }
-                    if ((CardName)cardName <=CardName.Ten )
+                    if ((CardName)cardName <= CardName.Ten)
                     {
-                        Cards.Add(new Card { Suit = (Suit)i, CardName = (CardName)cardName, CardValue = cardValue });
+                        Card card = new Card();
+                        card.Suit = (Suit)i;
+                        card.CardName = (CardName)cardName;
+                        card.CardValue = cardValue;
+                        Cards.Add(card);
                     }
-                    
+
                 }
             }
             return Cards;
         }
-        private  Stack<Card> Shuffle(List<Card> cards)
+        private Stack<Card> Shuffle(List<Card> cards)
         {
             Stack<Card> shuffCard = new Stack<Card>();
             while (shuffCard.Count < cards.Count)
